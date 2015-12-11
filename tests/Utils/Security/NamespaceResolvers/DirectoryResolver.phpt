@@ -13,4 +13,4 @@ require __DIR__ . "/../../../bootstrap.php";
 
 $resolver = new DirectoryResolver(__DIR__);
 
-Assert::equal(str_replace(DIRECTORY_SEPARATOR, '.', __DIR__), $resolver->resolve());
+Assert::equal(trim(str_replace(DIRECTORY_SEPARATOR, '.', __DIR__), '.'), $resolver->resolve());

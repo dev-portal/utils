@@ -10,6 +10,7 @@ use DevPortal\Utils\Security\NamespaceResolvers\ConfigResolver;
 use DevPortal\Utils\Security\NamespaceResolvers\DirectoryResolver;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ServiceDefinition;
+use Nette\DI\Statement;
 use Nette\InvalidArgumentException;
 use Nette\Security\IUserStorage;
 
@@ -42,7 +43,7 @@ class UserNamespaceExtension extends CompilerExtension
 				} else {
 					$this->registerDirectoryResolver();
 				}
-			break;
+				break;
 			case 'dir':
 			case 'directory':
 				$this->registerDirectoryResolver();
@@ -66,7 +67,7 @@ class UserNamespaceExtension extends CompilerExtension
 
 		if ($name = $builder->getByType(IUserStorage::class)) {
 			$builder->getDefinition($name)
-				->addSetup('setNamespace', [$builder->getByType(IUserNamespaceResolver::class), 'resolve']);
+				->addSetup('setNamespace', [new Statement('@' . IUserNamespaceResolver::class . '::resolve')]);
 		}
 	}
 
@@ -89,10 +90,11 @@ class UserNamespaceExtension extends CompilerExtension
 	 */
 	private function registerDirectoryResolver()
 	{
+		$wwwDir = $this->getContainerBuilder()->parameters['wwwDir'];
 		return $this->getContainerBuilder()
 			->addDefinition($this->prefix('resolver'))
 			->setClass(DirectoryResolver::class)
-			->setArguments(['%wwwDir%']);
+			->setArguments([$wwwDir]);
 	}
 
 }

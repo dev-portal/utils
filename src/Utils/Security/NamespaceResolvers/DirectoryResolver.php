@@ -24,7 +24,7 @@ class DirectoryResolver implements IUserNamespaceResolver
 	/** @return string */
 	public function resolve()
 	{
-		return str_replace(DIRECTORY_SEPARATOR, '.', $this->wwwDir);
+		return trim(str_replace(DIRECTORY_SEPARATOR, '.', $this->wwwDir), '.');
 	}
 
 }
