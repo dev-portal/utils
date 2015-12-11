@@ -1,0 +1,24 @@
+{
+	"name": "dev-portal/utils",
+	"description": "Collection of utilities for easier development and app running",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tomáš Blatný",
+			"email": "blatny.tomas@seznam.cz"
+		}
+	],
+	"require": {
+		"nette/di": "^2.3",
+		"nette/security": "^2.3"
+	},
+	"require-dev": {
+		"nette/tester": "^1.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"DevPortal\\Utils\\": "src/Utils/"
+		}
+	}
+}
